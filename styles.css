@@ -18,7 +18,29 @@ color: white;
 
 /* Increase the font size of the heading */
 .header h1 {
-font-size: 40px;
+    font-size: 25px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.header-icon {
+    display: inline-block;      /* Necesario para darle ancho y alto */
+    width: 120px;                /* Un poco más chicos que el timeline (que eran 52px) para el header */
+    height: 120px;
+    line-height: 106px;          /* Truco matemático: Altura (45) - BordeTotal (6) = 39 para centrar verticalmente */
+    
+    border-radius: 50%;         /* Lo hace redondo */
+    text-align: center;         /* Centra el icono horizontalmente */
+    
+    color: #fff;                /* Icono blanco */
+    background-color: #3498db;  /* Color por defecto (Azul) */
+    
+    border: 6px solid #fff;     /* Anillo blanco interno */
+    
+    font-size: 50px;            /* Tamaño del dibujo del icono */
+    align-content: center;/* Espacio contra el texto */
+    vertical-align: middle;     /* Alinea con el texto de al lado */
+    transition: transform 0.2s ease; /* Un pequeño efecto al pasar el mouse */
 }
 
 div.gallery {
@@ -130,55 +152,197 @@ background: #ddd;
 }
 }
 
+/* 1. Contenedor y Línea Central */
+.timeline {
+    position: relative;
+    width: 100vw;             /* 100% del ancho de la ventana del navegador */
+    margin-left: -50vw;       /* Truco matemático para centrarlo a la fuerza */
+    left: 50%;                /* Truco matemático parte 2 */
+    padding: 40px 20px;       
+    box-sizing: border-box;   /* Evita que aparezca scroll horizontal */
+    background-color: #495057;
+}
+
+/* La línea vertical ahora va al centro */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Centro exacto */
+    width: 4px;
+    background: #e9ecef;
+    transform: translateX(-50%); /* Ajuste fino para centrar el grosor */
+    border-radius: 2px;
+}
+
+/* 2. Configuración base de los elementos (Cards) */
 .timeline-element {
     position: relative;
-    margin: 2em 0;
-    width: 400px;
+    width: 50%; /* Ocupan la mitad del ancho */
+    padding: 0 40px; /* Espacio para que no toquen la línea */
+    box-sizing: border-box;
+    /* EL TRUCO DEL ENCASTRE: Margen negativo para subirlos */
+    margin-top: -60px; 
+    margin-bottom: 60px; /* Espacio abajo para compensar */
+    clear: both; /* Asegura el salto de línea */
+}
+
+/* El primer elemento no debe subir, sino queda cortado */
+.timeline-element:first-child {
+    margin-top: 0;
+}
+
+/* 3. Lado IZQUIERDO (Impares) - Por defecto */
+.timeline-element:nth-child(odd) {
+    left: 0;
+    text-align: right; /* Texto alineado a la línea */
+}
+
+/* Mover la tarjeta interior a la izquierda */
+.timeline-element:nth-child(odd) .timeline-element-content {
+    margin-left: 0; /* Reseteamos margen anterior */
+    
+}
+
+/* Ubicar el Icono en el centro */
+.timeline-element:nth-child(odd) .timeline-element-icon {
+    right: -26px; /* Mitad del ancho del icono (52px / 2) */
+    left: auto;   /* Anulamos el left anterior */
+}
+
+/* 4. Lado DERECHO (Pares) */
+.timeline-element:nth-child(even) {
+    left: 50%; /* Empiezan desde la mitad */
+    text-align: left;
+}
+
+.timeline-element:nth-child(even) .timeline-element-content {
+    margin-left: 0;
+}
+
+.timeline-element:nth-child(even) .timeline-element-icon {
+    left: -26px; /* Mitad del ancho del icono hacia la izquierda */
+}
+
+/* 5. Ajustes Visuales de la Tarjeta y Texto */
+.timeline-element-content {
+    /* CAMBIO CLAVE: Se ajusta al contenido en lugar de estirarse */
+    display: inline-block; 
+    position: relative;
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(241, 241, 241, 0.700);
+    transition: transform 0.3s ease;
+    z-index: 1; /* Para que quede sobre la línea si se cruzan */
+}
+
+.timeline-element-content:hover {
+/* MOVIMIENTO HACIA ARRIBA (Levitación) */
+    transform: translateY(-5px); 
+    
+    /* SOMBRA MÁS FUERTE (Efecto de altura) */
+    box-shadow: 0 15px 30px rgba(241, 241, 241, 0.700);
+}
+
+.timeline-element-content h4, 
+.timeline-element-content h5 {
+    margin: 0;        /* Elimina margen arriba, abajo y lados */
+    padding: 0;       /* Elimina relleno interno */
+    line-height: 1.2; /* Reduce la altura del renglón (a veces esto es lo que sobra) */
+}
+
+/* Ahora le damos solo el espacio justo que queremos */
+.timeline-element-content h4 {
+    margin-bottom: 4px; /* Solo 4px de separación real */
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.timeline-element-content h5 {
+    /* No le ponemos margin-top porque ya lo matamos arriba */
+    margin-bottom: 4px;
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .timeline-element-icon {
-    border-radius: 50%;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
-    height: 30px;
-    left: 15px;
-    right: 5px;
     position: absolute;
-    top: 0;
-    width: 30px;
+    top: 20px; /* Alineado con el título */
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 48px;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 3px #e9ecef;
+    z-index: 100; /* Siempre encima de todo */
+    font-size: 20px; /* Tamaño del icono FontAwesome */
 }
 
-.timeline-element-content {
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
-    background: #fff;
-    border-radius: .25em;
-    margin-left: 60px;
-    padding: 1em;
-    position: relative;
-}
-
-.timeline-element-date {
-    color: #333;
-    font-size: .8125rem;
-    font-weight: 500;
-    display: inline-block;
-    opacity: .7;
-    padding: .8em 0;
-}
-
+/* Animación Hover de los bullet points (la que hicimos antes) */
 .timeline-text-content {
-    text-align: justify;
-    text-justify: inter-word;
-    font-size: .8125rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    text-align: left; /* Los bullets siempre se leen mejor a la izquierda */
 }
 
+.timeline-element-content:hover .timeline-text-content {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 10px;
+}
 
-.timeline {
-    margin: 2em auto;
-    max-width: 1170px;
-    padding: 2em 0;
-    position: relative;
-    width: 95%;
-    display: flex;
+.timeline-text-content ul {
+    margin-top: 0;      /* Reseteamos márgenes por defecto del navegador */
+    padding-left: 20px; /* Sangría de los puntos */
+    font-size: 1rem;
+    font-family: Georgia, Times, 'Times New Roman', serif
+}
+
+/* La fecha (Estilo etiqueta) */
+.timeline-element-date {
+    display: inline-block;
+    padding: 6px 4px;
+    background: #f1f3f5;
+    color: #495057;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* 6. RESPONSIVE (Móvil) - Volver a columna simple */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 20px; /* Línea a la izquierda */
+    }
+    
+    .timeline-element {
+        width: 100%;
+        left: 0 !important; /* Forzar izquierda */
+        padding-left: 60px; /* Espacio para el icono */
+        padding-right: 20px;
+        text-align: left !important;
+        margin-top: 30px !important; /* Quitamos el encastre en móvil */
+    }
+    
+    .timeline-element-icon {
+        left: -6px !important; /* Icono a la izquierda */
+        right: auto !important;
+    }
+    
+    /* Mostrar texto siempre en móvil */
+    .timeline-text-content {
+        max-height: none;
+        opacity: 1;
+        overflow: visible;
+    }
 }
 
 .section {
@@ -221,8 +385,8 @@ background: #ddd;
 }
 
 .button, .icon-button, .button--big {
-    padding: 4px 5px;
-    font-size: .8125rem;
+    padding: 10px 10px;
+    font-size: 1rem;
     min-width: 64px;
     box-sizing: border-box;
     transition: background-color 250ms cubic-bezier(.4, 0, .2, 1) 0ms;
@@ -278,6 +442,7 @@ body>header>nav {
     color:#f1f1f1;
     font-size: 1.3rem;
     text-decoration: none;
+    padding-left: 20px;
 }
 
 .profile-picture {
