@@ -1,0 +1,292 @@
+* {
+box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+font-family: Arial, Helvetica, sans-serif;
+margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+padding: 80px;
+text-align: center;
+background: #000000;
+color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+font-size: 40px;
+}
+
+div.gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+div.gallery-item {
+  margin: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 150px;
+  height: 150px;
+}
+
+div.gallery-item:hover {
+  border: 1px solid #777;
+}
+
+div.gallery-item img {
+  width: 100%;
+  height: auto;
+}
+
+div.gallery-item div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+/* Style the top navigation bar */
+.navbar {
+overflow: hidden;
+background-color: #333;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+float: left;
+display: block;
+color: white;
+text-align: center;
+padding: 14px 20px;
+text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+background-color: #ddd;
+color: black;
+}
+
+/* Column container */
+.row {  
+display: -ms-flexbox; /* IE10 */
+display: flex;
+-ms-flex-wrap: wrap; /* IE10 */
+flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+-ms-flex: 30%; /* IE10 */
+flex: 30%;
+background-color: #f1f1f1;
+padding: 20px;
+}
+
+/* Main column */
+.main {   
+-ms-flex: 70%; /* IE10 */
+flex: 70%;
+background-color: white;
+padding: 20px;
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+background-color: #aaa;
+width: 100%;
+padding: 20px;
+}
+
+/* Footer */
+.footer {
+padding: 20px;
+text-align: center;
+background: #ddd;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+.row {   
+    flex-direction: column;
+}
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+.navbar a {
+    float: none;
+    width: 100%;
+}
+}
+
+.timeline-element {
+    position: relative;
+    margin: 2em 0;
+    width: 400px;
+}
+
+.timeline-element-icon {
+    border-radius: 50%;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+    height: 30px;
+    left: 15px;
+    right: 5px;
+    position: absolute;
+    top: 0;
+    width: 30px;
+}
+
+.timeline-element-content {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+    background: #fff;
+    border-radius: .25em;
+    margin-left: 60px;
+    padding: 1em;
+    position: relative;
+}
+
+.timeline-element-date {
+    color: #333;
+    font-size: .8125rem;
+    font-weight: 500;
+    display: inline-block;
+    opacity: .7;
+    padding: .8em 0;
+}
+
+.timeline-text-content {
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: .8125rem;
+}
+
+
+.timeline {
+    margin: 2em auto;
+    max-width: 1170px;
+    padding: 2em 0;
+    position: relative;
+    width: 95%;
+    display: flex;
+}
+
+.section {
+    background: #fff;
+    color: rgba(0, 0, 0, .8);
+    padding-top: 24px;
+    padding-bottom: 24px;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+}
+
+#about-me {
+    font-weight: 400;
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    padding: 24px;
+    padding: clamp(8px, 10%, 24px);
+    margin: auto;
+}
+
+.icon-button {
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    background: #5c0fd6;
+    border: none;
+    line-height: unset;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    min-width: unset;
+    cursor: pointer;
+}
+
+.button, .icon-button, .button--big {
+    padding: 4px 5px;
+    font-size: .8125rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(.4, 0, .2, 1) 0ms;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: .02857em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+}
+
+button {
+    appearance: auto;
+    text-rendering: auto;
+    color: #f43;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: #f1f145;
+    margin: 0em 0em 0em 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+
+body>header>nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 64px;
+    transition: all 250ms;
+}
+
+.name {
+    color:#f1f1f1;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+}
+
+img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
