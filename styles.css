@@ -176,6 +176,45 @@ background: #ddd;
     border-radius: 2px;
 }
 
+/* Contenedor de los botones */
+.timeline-filters {
+    text-align: center;
+    margin-bottom: 40px; /* Espacio antes de que empiece la línea */
+}
+
+/* Estilo base del botón */
+.filter-btn {
+    background-color: #f1f3f5;
+    border: none;
+    padding: 10px 25px;
+    margin: 5px;
+    border-radius: 25px; /* Forma de píldora */
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* Efecto Hover */
+.filter-btn:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+}
+
+/* Botón Activo (El seleccionado) */
+.filter-btn.active {
+    background-color: #3498db; /* O el color que prefieras */
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+/* CLASE OCULTA: Esto es lo que usa JS para esconder las tarjetas */
+.timeline-element.hide {
+    display: none;
+}
+
 /* 2. Configuración base de los elementos (Cards) */
 .timeline-element {
     position: relative;
@@ -186,6 +225,15 @@ background: #ddd;
     margin-top: -60px; 
     margin-bottom: 60px; /* Espacio abajo para compensar */
     clear: both; /* Asegura el salto de línea */
+    opacity: 0;
+    transform: translateY(100px); /* Un poco más abajo */
+    transition: all 0.8s ease-out; /* La animación suave */
+}
+
+/* Estado final (Visible y en su lugar) */
+.timeline-element.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* El primer elemento no debe subir, sino queda cortado */
@@ -454,4 +502,111 @@ body>header>nav {
 img {
     overflow-clip-margin: content-box;
     overflow: clip;
+}
+
+/* Clase especial para corregir el espaciado del primer elemento visible */
+.timeline-element.first-visible {
+    margin-top: 0 !important;
+}
+
+
+/* 1. Contenedor Principal (El fondo) */
+.hero {
+    position: relative;
+    background-color: #000000; /* O un gris muy suave #f8f9fa */
+    padding: 150px 20px;
+    border-bottom: 1px solid #eee; /* Una línea sutil para separar del timeline */
+    overflow: hidden; /* Para que no se salgan las partículas */
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Nivel 1: Fondo */
+}
+
+/* 2. El layout flexible (Lado a lado) */
+.hero-container {
+    position: relative;
+    z-index: 2; /* Nivel 2: Texto y Foto */
+    max-width: 1100px; /* Ancho máximo para que no se estire demasiado */
+    margin: 0 auto;
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    justify-content: center;
+    gap: 200px; /* Espacio entre la foto y el texto */
+}
+
+/* 3. Estilos de la Foto */
+.hero-image-container {
+    flex-shrink: 0; /* Evita que la foto se aplaste si hay mucho texto */
+}
+
+.hero-photo {
+    width: 150px;      /* Tamaño generoso */
+    height: 150px;
+    object-fit: cover; /* Recorta la foto para que llene el círculo sin deformarse */
+    border-radius: 50%; /* Círculo perfecto */
+    border: 5px solid #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Sombra elegante */
+}
+
+/* 4. Estilos del Texto */
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #3498db; /* Color de acento (Azul) */
+    margin: 0 0 20px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.8; /* Importante para que se lea fácil */
+    color:#e9ecef;
+    margin-bottom: 30px;
+}
+
+/* 5. Iconos de contacto (Ajuste de espaciado) */
+.hero-contact {
+    display: flex;
+    gap: 15px; /* Separación entre iconos */
+}
+
+/* 6. RESPONSIVE (Celulares) */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column; /* Apilar uno arriba del otro */
+        text-align: center;     /* Centrar todo el texto */
+        gap: 30px;
+    }
+
+    .hero-photo {
+        width: 200px; /* Foto más chica en celu */
+        height: 200px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero-contact {
+        justify-content: center; /* Centrar los iconos en celu */
+    }
 }
