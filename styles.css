@@ -43,34 +43,6 @@ color: white;
     transition: transform 0.2s ease; /* Un pequeño efecto al pasar el mouse */
 }
 
-div.gallery {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-}
-
-div.gallery-item {
-  margin: 10px;
-  margin-left: 50px;
-  margin-right: 50px;
-  width: 150px;
-  height: 150px;
-}
-
-div.gallery-item:hover {
-  border: 1px solid #777;
-}
-
-div.gallery-item img {
-  width: 100%;
-  height: auto;
-}
-
-div.gallery-item div.desc {
-  padding: 15px;
-  text-align: center;
-}
-
 /* Style the top navigation bar */
 .navbar {
 overflow: hidden;
@@ -115,65 +87,189 @@ background-color: #f1f1f1;
 padding: 20px;
 }
 
+.name {
+    color:#f1f1f1;
+    font-size: 1.3rem;
+    text-decoration: none;
+    padding-left: 20px;
+}
+
+.icon-button {
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    background: #5c0fd6;
+    border: none;
+    line-height: unset;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    min-width: unset;
+    cursor: pointer;
+}
+
+.button, .icon-button, .button--big {
+    padding: 10px 10px;
+    font-size: 1rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(.4, 0, .2, 1) 0ms;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: .02857em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+}
+
+button {
+    appearance: auto;
+    text-rendering: auto;
+    color: #f43;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: #f1f145;
+    margin: 0em 0em 0em 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+
+body>header>nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 64px;
+    transition: all 250ms;
+}
+
 /* Main column */
 .main {   
 -ms-flex: 70%; /* IE10 */
 flex: 70%;
-background-color: white;
+background-color: #000000;
 padding: 20px;
 }
 
-/* Fake image, just for this example */
-.fakeimg {
-background-color: #aaa;
-width: 100%;
-padding: 20px;
-}
-
-/* Footer */
-.footer {
-padding: 20px;
-text-align: center;
-background: #ddd;
-}
-
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
-.row {   
-    flex-direction: column;
-}
-}
-
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-.navbar a {
-    float: none;
-    width: 100%;
-}
-}
-
-/* 1. Contenedor y Línea Central */
-.timeline {
+/* 1. Contenedor Principal (El fondo) */
+.hero {
     position: relative;
-    width: 100vw;             /* 100% del ancho de la ventana del navegador */
-    margin-left: -50vw;       /* Truco matemático para centrarlo a la fuerza */
-    left: 50%;                /* Truco matemático parte 2 */
-    padding: 40px 20px;       
-    box-sizing: border-box;   /* Evita que aparezca scroll horizontal */
-    background-color: #495057;
+    background-color: #000000; /* O un gris muy suave #f8f9fa */
+    padding: 100px 20px;
+    border-bottom: 1px solid #eee; /* Una línea sutil para separar del timeline */
+    overflow: hidden; /* Para que no se salgan las partículas */
 }
 
-/* La línea vertical ahora va al centro */
-.timeline::before {
-    content: '';
+#particles-js {
     position: absolute;
+    width: 100%;
+    height: 100%;
     top: 0;
-    bottom: 0;
-    left: 50%; /* Centro exacto */
-    width: 4px;
-    background: #e9ecef;
-    transform: translateX(-50%); /* Ajuste fino para centrar el grosor */
-    border-radius: 2px;
+    left: 0;
+    z-index: 1; /* Nivel 1: Fondo */
+}
+
+/* 2. El layout flexible (Lado a lado) */
+.hero-container {
+    position: relative;
+    z-index: 2; /* Nivel 2: Texto y Foto */
+    max-width: 1100px; /* Ancho máximo para que no se estire demasiado */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 200px; /* Espacio entre la foto y el texto */
+}
+
+/* 3. Estilos de la Foto */
+.hero-image-container {
+    flex-shrink: 0; /* Evita que la foto se aplaste si hay mucho texto */
+}
+
+.hero-photo {
+    width: 180px;      /* Tamaño generoso */
+    height: 180px;
+    object-fit: cover; /* Recorta la foto para que llene el círculo sin deformarse */
+    border-radius: 50%; /* Círculo perfecto */
+    border: 5px solid #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Sombra elegante */
+}
+
+/* 4. Estilos del Texto */
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #3498db; /* Color de acento (Azul) */
+    margin: 0 0 20px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.8; /* Importante para que se lea fácil */
+    color:#e9ecef;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+/* 5. Iconos de contacto (Ajuste de espaciado) */
+.hero-contact {
+    display: flex;
+    gap: 15px; /* Separación entre iconos */
+}
+
+/* 6. RESPONSIVE (Celulares) */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column; /* Apilar uno arriba del otro */
+        text-align: center;     /* Centrar todo el texto */
+        gap: 30px;
+    }
+
+    .hero-photo {
+        width: 200px; /* Foto más chica en celu */
+        height: 200px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero-contact {
+        justify-content: center; /* Centrar los iconos en celu */
+    }
 }
 
 /* Contenedor de los botones */
@@ -208,6 +304,30 @@ background: #ddd;
     background-color: #3498db; /* O el color que prefieras */
     color: #fff;
     box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+/* 1. Contenedor y Línea Central */
+.timeline {
+    position: relative;
+    width: 100vw;             /* 100% del ancho de la ventana del navegador */
+    margin-left: -50vw;       /* Truco matemático para centrarlo a la fuerza */
+    left: 50%;                /* Truco matemático parte 2 */
+    padding: 40px 20px;       
+    box-sizing: border-box;   /* Evita que aparezca scroll horizontal */
+    background-color: #495057;
+}
+
+/* La línea vertical ahora va al centro */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Centro exacto */
+    width: 4px;
+    background: #e9ecef;
+    transform: translateX(-50%); /* Ajuste fino para centrar el grosor */
+    border-radius: 2px;
 }
 
 /* CLASE OCULTA: Esto es lo que usa JS para esconder las tarjetas */
@@ -393,220 +513,29 @@ background: #ddd;
     }
 }
 
-.section {
-    background: #fff;
-    color: rgba(0, 0, 0, .8);
-    padding-top: 24px;
-    padding-bottom: 24px;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
-}
-
-#about-me {
-    font-weight: 400;
-    padding: 1rem 0;
-    font-size: 1.2rem;
-    text-align: justify;
-    text-justify: inter-word;
-}
-
-.container {
-    width: 100%;
-    max-width: 1280px;
-    padding: 24px;
-    padding: clamp(8px, 10%, 24px);
-    margin: auto;
-}
-
-.icon-button {
-    padding: 12px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    background: #5c0fd6;
-    border: none;
-    line-height: unset;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-    min-width: unset;
-    cursor: pointer;
-}
-
-.button, .icon-button, .button--big {
-    padding: 10px 10px;
-    font-size: 1rem;
-    min-width: 64px;
-    box-sizing: border-box;
-    transition: background-color 250ms cubic-bezier(.4, 0, .2, 1) 0ms;
-    font-weight: 500;
-    line-height: 1.75;
-    border-radius: 4px;
-    letter-spacing: .02857em;
-    text-transform: uppercase;
-    color: #fff;
-    text-decoration: none;
-}
-
-button {
-    appearance: auto;
-    text-rendering: auto;
-    color: #f43;
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    cursor: default;
-    box-sizing: border-box;
-    background-color: #f1f145;
-    margin: 0em 0em 0em 0em;
-    padding-block: 1px;
-    padding-inline: 6px;
-    border-width: 2px;
-    border-style: outset;
-    border-color: buttonborder;
-    border-image: initial;
-}
-
-body>header>nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
-    min-height: 64px;
-    transition: all 250ms;
-}
-
-.name {
-    color:#f1f1f1;
-    font-size: 1.3rem;
-    text-decoration: none;
-    padding-left: 20px;
-}
-
-.profile-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 100px;
-}
-
-img {
-    overflow-clip-margin: content-box;
-    overflow: clip;
-}
-
 /* Clase especial para corregir el espaciado del primer elemento visible */
 .timeline-element.first-visible {
     margin-top: 0 !important;
 }
 
-
-/* 1. Contenedor Principal (El fondo) */
-.hero {
-    position: relative;
-    background-color: #000000; /* O un gris muy suave #f8f9fa */
-    padding: 150px 20px;
-    border-bottom: 1px solid #eee; /* Una línea sutil para separar del timeline */
-    overflow: hidden; /* Para que no se salgan las partículas */
+/* Footer */
+.footer {
+padding: 20px;
+text-align: center;
+background: #ddd;
 }
 
-#particles-js {
-    position: absolute;
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+.row {   
+    flex-direction: column;
+}
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+.navbar a {
+    float: none;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1; /* Nivel 1: Fondo */
 }
-
-/* 2. El layout flexible (Lado a lado) */
-.hero-container {
-    position: relative;
-    z-index: 2; /* Nivel 2: Texto y Foto */
-    max-width: 1100px; /* Ancho máximo para que no se estire demasiado */
-    margin: 0 auto;
-    display: flex;
-    align-items: center; /* Centrado vertical */
-    justify-content: center;
-    gap: 200px; /* Espacio entre la foto y el texto */
-}
-
-/* 3. Estilos de la Foto */
-.hero-image-container {
-    flex-shrink: 0; /* Evita que la foto se aplaste si hay mucho texto */
-}
-
-.hero-photo {
-    width: 150px;      /* Tamaño generoso */
-    height: 150px;
-    object-fit: cover; /* Recorta la foto para que llene el círculo sin deformarse */
-    border-radius: 50%; /* Círculo perfecto */
-    border: 5px solid #fff;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Sombra elegante */
-}
-
-/* 4. Estilos del Texto */
-.hero-text {
-    max-width: 600px;
-}
-
-.hero-text h1 {
-    font-size: 3rem;
-    margin: 0 0 10px 0;
-    color: #2c3e50;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    color: #3498db; /* Color de acento (Azul) */
-    margin: 0 0 20px 0;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.hero-description {
-    font-size: 1.1rem;
-    line-height: 1.8; /* Importante para que se lea fácil */
-    color:#e9ecef;
-    margin-bottom: 30px;
-}
-
-/* 5. Iconos de contacto (Ajuste de espaciado) */
-.hero-contact {
-    display: flex;
-    gap: 15px; /* Separación entre iconos */
-}
-
-/* 6. RESPONSIVE (Celulares) */
-@media (max-width: 768px) {
-    .hero-container {
-        flex-direction: column; /* Apilar uno arriba del otro */
-        text-align: center;     /* Centrar todo el texto */
-        gap: 30px;
-    }
-
-    .hero-photo {
-        width: 200px; /* Foto más chica en celu */
-        height: 200px;
-    }
-
-    .hero-text h1 {
-        font-size: 2.2rem;
-    }
-    
-    .hero-contact {
-        justify-content: center; /* Centrar los iconos en celu */
-    }
 }
