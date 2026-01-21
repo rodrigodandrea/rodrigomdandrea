@@ -1,90 +1,47 @@
 * {
-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {   
+    /* 2. Hace que el deslizamiento sea suave */
+    scroll-behavior: smooth;
 }
 
 /* Style the body */
 body {
-font-family: Arial, Helvetica, sans-serif;
-margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;/* 1. Activa el magnetismo vertical (y) y obligatorio (mandatory) */
 }
 
-/* Header/logo Title */
-.header {
-padding: 80px;
-text-align: center;
-background: #000000;
-color: white;
+body > header > nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 50px;
+    transition: all 250ms;
+    background-color: #000000;
+    transition: transform 0.3s ease-in-out; 
 }
 
-/* Increase the font size of the heading */
-.header h1 {
-    font-size: 25px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+/* 2. Creamos la clase que "esconde" la barra */
+.nav-hidden {
+    /* Mueve la barra 100% de su altura hacia arriba (la saca de la pantalla) */
+    transform: translateY(-100%); 
 }
 
-.header-icon {
-    display: inline-block;      /* Necesario para darle ancho y alto */
-    width: 120px;                /* Un poco más chicos que el timeline (que eran 52px) para el header */
-    height: 120px;
-    line-height: 106px;          /* Truco matemático: Altura (45) - BordeTotal (6) = 39 para centrar verticalmente */
-    
-    border-radius: 50%;         /* Lo hace redondo */
-    text-align: center;         /* Centra el icono horizontalmente */
-    
-    color: #fff;                /* Icono blanco */
-    background-color: #3498db;  /* Color por defecto (Azul) */
-    
-    border: 6px solid #fff;     /* Anillo blanco interno */
-    
-    font-size: 50px;            /* Tamaño del dibujo del icono */
-    align-content: center;/* Espacio contra el texto */
-    vertical-align: middle;     /* Alinea con el texto de al lado */
-    transition: transform 0.2s ease; /* Un pequeño efecto al pasar el mouse */
-}
-
-/* Style the top navigation bar */
-.navbar {
-overflow: hidden;
-background-color: #333;
-}
-
-/* Style the navigation bar links */
-.navbar a {
-float: left;
-display: block;
-color: white;
-text-align: center;
-padding: 14px 20px;
-text-decoration: none;
-}
-
-/* Right-aligned link */
-.navbar a.right {
-float: right;
-}
-
-/* Change color on hover */
-.navbar a:hover {
-background-color: #ddd;
-color: black;
-}
-
-/* Column container */
-.row {  
-display: -ms-flexbox; /* IE10 */
-display: flex;
--ms-flex-wrap: wrap; /* IE10 */
-flex-wrap: wrap;
-}
-
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
-.side {
--ms-flex: 30%; /* IE10 */
-flex: 30%;
-background-color: #f1f1f1;
-padding: 20px;
+/* Esto le quita el aire arriba y abajo a TU NOMBRE en la barra */
+body > header > nav h1 {
+    margin: 0; 
+    line-height: 1; /* Evita que ocupe espacio extra verticalmente */
+    display: flex; /* Ayuda a centrarlo */
+    align-items: center;
 }
 
 .name {
@@ -110,9 +67,9 @@ padding: 20px;
 }
 
 .button, .icon-button, .button--big {
-    padding: 10px 10px;
+    padding: 10px 60px 10px 0px;
     font-size: 1rem;
-    min-width: 64px;
+    min-width: 50px;
     box-sizing: border-box;
     transition: background-color 250ms cubic-bezier(.4, 0, .2, 1) 0ms;
     font-weight: 500;
@@ -148,21 +105,6 @@ button {
     border-image: initial;
 }
 
-body>header>nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
-    min-height: 64px;
-    transition: all 250ms;
-}
-
 /* Main column */
 .main {   
 -ms-flex: 70%; /* IE10 */
@@ -178,6 +120,8 @@ padding: 20px;
     padding: 100px 20px;
     border-bottom: 1px solid #eee; /* Una línea sutil para separar del timeline */
     overflow: hidden; /* Para que no se salgan las partículas */
+    /* Pégate al inicio (arriba) */
+    min-height: 100vh;
 }
 
 #particles-js {
@@ -275,15 +219,16 @@ padding: 20px;
 /* Contenedor de los botones */
 .timeline-filters {
     text-align: center;
-    margin-bottom: 40px; /* Espacio antes de que empiece la línea */
+    margin-bottom: 20px; /* Espacio antes de que empiece la línea */
+    margin-top: 20px;
 }
 
 /* Estilo base del botón */
 .filter-btn {
-    background-color: #f1f3f5;
+    background-color: #e0e1e2;
     border: none;
     padding: 10px 25px;
-    margin: 5px;
+    margin: 5px 55px 5px 55px;
     border-radius: 25px; /* Forma de píldora */
     cursor: pointer;
     font-size: 0.95rem;
@@ -315,6 +260,8 @@ padding: 20px;
     padding: 40px 20px;       
     box-sizing: border-box;   /* Evita que aparezca scroll horizontal */
     background-color: #495057;
+        /* Pégate al inicio (arriba) */
+    min-height: 100vh;
 }
 
 /* La línea vertical ahora va al centro */

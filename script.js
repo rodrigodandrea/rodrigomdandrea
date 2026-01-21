@@ -112,3 +112,106 @@ particlesJS("particles-js", {
   },
   "retina_detect": true
 });
+
+// --- LÓGICA PARA OCULTAR/MOSTRAR NAVBAR ---
+
+// 1. Guardamos la posición inicial del scroll
+let ubicacionPrincipal = window.pageYOffset;
+
+// 2. Seleccionamos la barra de navegación (asegúrate que el selector coincida con tu CSS)
+const navbar = document.querySelector("body > header > nav");
+
+// 3. Escuchamos el evento de scroll
+window.addEventListener('scroll', function() {
+    // A. Detectamos dónde estamos ahora
+    let desplazamientoActual = window.pageYOffset;
+
+    // B. Comparamos: ¿Estamos más arriba o más abajo que antes?
+    if (ubicacionPrincipal >= desplazamientoActual) {
+        // SI SUBIMOS: Quitamos la clase para mostrar la barra
+        navbar.classList.remove("nav-hidden");
+    } else {
+        // SI BAJAMOS: Agregamos la clase para esconder la barra
+        navbar.classList.add("nav-hidden");
+    }
+
+    // C. Actualizamos la ubicación principal para la próxima comparación
+    ubicacionPrincipal = desplazamientoActual;
+});
+
+// --- SCROLL INTELIGENTE: DINÁMICO SEGÚN LA BARRA ---
+
+// CONFIGURACIÓN DE OFFSETS (ESPACIOS)
+const offsetBajar = 20;   // Al bajar, la barra se va, así que no dejamos espacio extra.
+const offsetSubir = 70;  // Al subir, la barra vuelve, dejamos espacio para que no tape el título.
+
+// OTRAS CONFIGURACIONES
+const snapZone = 150;    // Zona de "imán" cuando vienes desde abajo
+
+// ESTADO
+let isAutoScrolling = false;
+let lastScrollTop = 0;
+
+window.addEventListener('scroll', () => {
+    if (isAutoScrolling) return;
+
+    const currentScroll = window.scrollY;
+    
+    // SELECCIÓN DE ELEMENTOS
+    const heroSection = document.querySelector('.hero');
+    const timelineSection = document.querySelector('.timeline-filters') || document.querySelector('.timeline'); 
+
+    if (!heroSection || !timelineSection) return;
+
+    // Posición "cruda" del timeline (sin restar nada todavía)
+    const rawTimelineTop = timelineSection.offsetTop;
+
+    // --- LÓGICA DE DIRECCIÓN ---
+    
+    // 1. EL USUARIO ESTÁ BAJANDO (SCROLL DOWN) ▼
+    if (currentScroll > lastScrollTop) {
+        
+        // Si estamos en el Hero y bajamos un poco...
+        if (currentScroll > 100 && currentScroll < rawTimelineTop - 50) {
+            
+            // Usamos offsetBajar (0) porque la barra se esconderá
+            performSmoothScroll(rawTimelineTop - offsetBajar);
+        }
+    } 
+    
+    // 2. EL USUARIO ESTÁ SUBIENDO (SCROLL UP) ▲
+    else if (currentScroll < lastScrollTop) {
+        
+        // Calculamos el objetivo CON espacio para la barra
+        const targetConBarra = rawTimelineTop - offsetSubir;
+
+        // CASO A: Venimos del contenido y llegamos a los Filtros
+        // Si estamos en la zona de snap (entre el objetivo y 200px más abajo)
+        if (currentScroll > targetConBarra && currentScroll < (targetConBarra + snapZone)) {
+            performSmoothScroll(targetConBarra);
+        }
+
+        // CASO B: Queremos volver al Hero
+        // Si subimos más allá de la línea de los filtros
+        if (currentScroll < (targetConBarra - 50)) { 
+            performSmoothScroll(0);
+        }
+    }
+
+    lastScrollTop = currentScroll;
+});
+
+// FUNCIÓN DE MOVIMIENTO SUAVE
+function performSmoothScroll(targetY) {
+    isAutoScrolling = true;
+    
+    window.scrollTo({
+        top: targetY,
+        behavior: 'smooth'
+    });
+
+    setTimeout(() => {
+        isAutoScrolling = false;
+        lastScrollTop = window.scrollY; 
+    }, 600);
+}
